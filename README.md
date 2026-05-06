@@ -54,7 +54,7 @@ npm run dev
 
 Open the local URL, connect a devnet wallet, and request devnet SOL from the wallet menu if needed.
 
-For the judging walkthrough, see `DEMO.md`.
+For a complete demo walkthrough, see `DEMO.md`.
 
 ## Checks
 
@@ -67,14 +67,8 @@ npm run arcium:status
 
 `npm run lint` currently passes with Fast Refresh warnings from shared exports in UI/helper files.
 
-## Submission Fit
+## Why It Matters
 
-Innovation: private price discovery for high-value digital and real-world assets.
+Obscura is built for auctions where price discovery should happen without public bid leakage. That includes high-value digital assets, treasury sales, NFT drops, RWAs, and OTC-style allocations where reactive bidding and mempool visibility distort the outcome.
 
-Technical implementation: Solana devnet wallet integration, Arcium client integration layer, typed encrypted bid input model, and a deployed MXE program with live Sealed-Bid and Vickrey settlement attempts on devnet.
-
-User experience: wallet-native auction flow with clear privacy states and readable settlement mechanics.
-
-Impact: prevents reactive bidding, bid leakage, and MEV around auctions, treasury sales, NFT drops, RWAs, and OTC allocations.
-
-Clarity: the app explains exactly what Arcium hides, what it reveals, and where the MXE program fits.
+The product is designed to keep the user flow simple while making the privacy boundary legible. Bidders can see what stays hidden, creators can settle from a normal wallet flow, and the app explains where Arcium handles encrypted computation and where Solana handles asset movement.

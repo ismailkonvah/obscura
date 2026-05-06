@@ -1,6 +1,6 @@
 # Obscura Demo Walkthrough
 
-This walkthrough shows the current judging path for the live devnet demo.
+This walkthrough shows the recommended flow for the live devnet demo.
 
 ## Goal
 
@@ -56,7 +56,7 @@ If you created the auction, click `Settle auction`. For Sealed-Bid and Vickrey a
 - Uniform Price is available in the product, but still falls back to local settlement logic.
 - The current live Arcium settlement path supports up to 3 bids per auction.
 
-## What To Emphasize
+## What This Flow Shows
 
 Obscura is not a public ascending auction. It is a private price discovery market:
 
