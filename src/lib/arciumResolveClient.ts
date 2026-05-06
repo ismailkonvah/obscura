@@ -20,9 +20,8 @@ import {
   isArciumDevnetConfigured,
 } from "@/lib/arcium";
 import { deriveBidderCommitment, encryptSettlementBatchForArcium } from "@/lib/arciumBidEncryption";
+import { obscuraMxeIdl } from "@/lib/obscuraMxeIdl";
 import { DEVNET_RPC } from "@/lib/solanaRpc";
-import obscuraMxeIdlRaw from "../../programs/obscura_mxe/target/idl/obscura_mxe.json?raw";
-const obscuraMxeIdl = JSON.parse(obscuraMxeIdlRaw);
 
 export type ArciumResolveResult = {
   winnerBidder?: string;
