@@ -9,10 +9,29 @@ function toBytes(chunk: HashChunk) {
   return chunk;
 }
 
+function toUint8View(buffer: ArrayBufferView | ArrayBuffer) {
+  if (buffer instanceof ArrayBuffer) return new Uint8Array(buffer);
+  return new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+}
+
 export function randomBytes(length: number) {
   const bytes = new Uint8Array(length);
   crypto.getRandomValues(bytes);
   return Buffer.from(bytes);
+}
+
+export function randomFillSync<T extends ArrayBufferView | ArrayBuffer>(
+  buffer: T,
+  offset = 0,
+  size?: number,
+): T {
+  const view = toUint8View(buffer);
+  const length = size ?? view.byteLength - offset;
+  if (offset < 0 || length < 0 || offset + length > view.byteLength) {
+    throw new RangeError("Requested randomFillSync range is out of bounds.");
+  }
+  crypto.getRandomValues(view.subarray(offset, offset + length));
+  return buffer;
 }
 
 export function createHash(algorithm: string) {
