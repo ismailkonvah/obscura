@@ -1,4 +1,4 @@
-import { Buffer } from "buffer/";
+import { Buffer } from "buffer";
 import { sha256 } from "@noble/hashes/sha2";
 
 type HashChunk = string | Uint8Array | ArrayBuffer;

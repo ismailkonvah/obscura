@@ -8,7 +8,7 @@ import {
   TransactionInstruction,
   type Commitment,
 } from "@solana/web3.js";
-import { Buffer as BrowserBuffer } from "buffer/";
+import { Buffer as BrowserBuffer } from "buffer";
 import { DEVNET_RPC } from "@/lib/solanaRpc";
 
 (globalThis as unknown as { Buffer?: typeof BrowserBuffer }).Buffer ??= BrowserBuffer;

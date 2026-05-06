@@ -8,6 +8,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 const browserCryptoShim = fileURLToPath(new URL("./src/lib/browserCryptoShim.ts", import.meta.url));
 const browserFsShim = fileURLToPath(new URL("./src/lib/browserFsShim.ts", import.meta.url));
+const bufferShim = fileURLToPath(new URL("./node_modules/buffer/index.js", import.meta.url));
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
 
 export default defineConfig({
@@ -17,6 +18,9 @@ export default defineConfig({
       "@": srcDir,
       crypto: browserCryptoShim,
       fs: browserFsShim,
+      buffer: bufferShim,
+      "buffer/": bufferShim,
+      "node:buffer": bufferShim,
     },
   },
   server: {
