@@ -11,16 +11,20 @@ const browserFsShim = fileURLToPath(new URL("./src/lib/browserFsShim.ts", import
 const bufferShim = fileURLToPath(new URL("./node_modules/buffer/index.js", import.meta.url));
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [tanstackStart(), nitro(), react(), tsconfigPaths(), tailwindcss()],
   resolve: {
     alias: {
       "@": srcDir,
-      crypto: browserCryptoShim,
-      fs: browserFsShim,
-      buffer: bufferShim,
-      "buffer/": bufferShim,
-      "node:buffer": bufferShim,
+      ...(isSsrBuild
+        ? {}
+        : {
+            crypto: browserCryptoShim,
+            fs: browserFsShim,
+            buffer: bufferShim,
+            "buffer/": bufferShim,
+            "node:buffer": bufferShim,
+          }),
     },
   },
   server: {
@@ -33,4 +37,4 @@ export default defineConfig({
     port: 8080,
     strictPort: true,
   },
-});
+}));

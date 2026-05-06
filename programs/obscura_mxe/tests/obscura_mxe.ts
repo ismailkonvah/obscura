@@ -10,16 +10,13 @@ import {
   getMXEAccAddress,
   uploadCircuit,
 } from "@arcium-hq/client";
-import { expect } from "chai";
 import * as fs from "fs";
 import * as os from "os";
-
-import { ObscuraMxe } from "../target/types/obscura_mxe";
 
 describe("ObscuraMxe", () => {
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.ObscuraMxe as Program<ObscuraMxe>;
+  const program = anchor.workspace.ObscuraMxe as Program;
   const provider = anchor.getProvider() as anchor.AnchorProvider;
   const arciumProgram = getArciumProgram(provider);
 
@@ -28,11 +25,13 @@ describe("ObscuraMxe", () => {
     const signature = await initResolveBlindAuctionCompDef(program, owner);
 
     console.log("Blind auction computation definition initialized", signature);
-    expect(signature).to.be.a("string");
+    if (typeof signature !== "string" || signature.length === 0) {
+      throw new Error("Expected a transaction signature string");
+    }
   });
 
   async function initResolveBlindAuctionCompDef(
-    activeProgram: Program<ObscuraMxe>,
+    activeProgram: Program,
     owner: anchor.web3.Keypair,
   ): Promise<string> {
     const baseSeedCompDefAcc = getArciumAccountBaseSeed("ComputationDefinitionAccount");
