@@ -1,6 +1,6 @@
 # Obscura Demo Walkthrough
 
-This walkthrough shows the intended judging path before the final Arcium MXE deployment step.
+This walkthrough shows the current judging path for the live devnet demo.
 
 ## Goal
 
@@ -9,7 +9,7 @@ Demonstrate a blind auction flow where bidders cannot react to each other before
 - bid amounts stay hidden
 - losing bid strategy stays hidden
 - only winner, clearing price, and allocation are revealed on settlement
-- Arcium encrypts bid payloads client-side; the deployed MXE is the next step for live MPC comparison
+- Arcium encrypts bid payloads client-side, and sealed-bid or Vickrey settlement can use the deployed MXE on devnet
 
 ## Steps
 
@@ -22,7 +22,7 @@ npm run dev
 
 2. Connect a Solana devnet wallet.
 
-Use Phantom or Solflare. The app reads balance from `https://api.devnet.solana.com`.
+Use Phantom or Solflare. The app reads balance from the configured Solana devnet RPC.
 
 3. Request devnet SOL.
 
@@ -48,7 +48,13 @@ Open the created auction, enter a bid, and submit. The app uses `@arcium-hq/clie
 
 7. Resolve the auction.
 
-If you created the auction, click `Resolve auction`. The UI reveals the settlement result only: winner commitment and clearing price.
+If you created the auction, click `Settle auction`. For Sealed-Bid and Vickrey auctions, the app attempts the live Arcium MXE settlement path on devnet before falling back locally. The UI reveals the result and settlement actions only: winner, clearing price, seller payout, refunds, and lot transfer.
+
+## Current Notes
+
+- Sealed-Bid and Vickrey are the strongest live demo paths.
+- Uniform Price is available in the product, but still falls back to local settlement logic.
+- The current live Arcium settlement path supports up to 3 bids per auction.
 
 ## What To Emphasize
 
@@ -59,4 +65,4 @@ Obscura is not a public ascending auction. It is a private price discovery marke
 - no real-time copy-bidding
 - no losing strategy disclosure
 
-The next implementation step is wiring the encrypted payload in `src/lib/arciumBidEncryption.ts` into the deployed Arcium/Anchor instruction. Set `VITE_ARCIUM_MXE_PROGRAM_ID` and `VITE_ARCIUM_MXE_PUBLIC_KEY` when that program is live.
+The deployed MXE is already wired into the frontend environment. The remaining protocol step is expanding live Arcium-backed settlement beyond the current Sealed-Bid and Vickrey path and removing the remaining local fallback paths.

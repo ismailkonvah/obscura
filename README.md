@@ -2,7 +2,7 @@
 
 Blind auctions for Solana, designed for Arcium confidential computation.
 
-Obscura supports sealed-bid, Vickrey, and uniform-price auction flows. The app connects to a real injected Solana wallet on devnet, reads the wallet balance from `https://api.devnet.solana.com`, includes a devnet airdrop helper for testing, and provides an end-to-end demo marketplace flow: wrap SOL into 1:1 cSOL as a real devnet SPL token, withdraw SOL by burning cSOL, create an auction with a cSOL reserve and custom item metadata, mint a one-of-one devnet SPL lot automatically, submit private cSOL bids, and resolve only the final result.
+Obscura supports sealed-bid, Vickrey, and uniform-price auction flows. The app connects to a real injected Solana wallet on devnet, reads wallet state from the configured devnet RPC, includes a devnet airdrop helper for testing, and provides an end-to-end demo marketplace flow: wrap SOL into 1:1 cSOL as a real devnet SPL token, withdraw SOL by burning cSOL, create an auction with a cSOL reserve and custom item metadata, mint a one-of-one devnet SPL lot automatically, submit private cSOL bids, and settle to the final result.
 
 ## Why Arcium
 
@@ -37,11 +37,12 @@ Implemented:
 - Protocol boundary in `src/lib/auctionProgramClient.ts` so local demo behavior can be swapped for the deployed Arcium/Anchor client.
 - In-app Arcium explanation and integration status panel.
 - Devnet MXE deployed at `EnPG3YjzUNpDgHp6YqiLoaeL5iNjaEHfXH9E1SYqpWEP`, with frontend env wired to the live MXE public key.
+- Live Arcium devnet settlement attempt for Sealed-Bid and Vickrey auctions, with local fallback where the current protocol path is not yet implemented.
 
 Remaining integration step:
 
-- Finish the raw circuit upload and `arcium test --cluster devnet` flow against a less rate-limited devnet RPC.
-- Replace the local receipt persistence with the generated Arcium/Anchor instruction that submits the existing encrypted payload.
+- Expand live Arcium-backed settlement beyond the current Sealed-Bid and Vickrey flow.
+- Remove the remaining local fallback logic used for Uniform Price and unsupported edge cases.
 - Replace the browser-local demo vault key with a program-owned vault or PDA.
 
 ## Run
@@ -70,7 +71,7 @@ npm run arcium:status
 
 Innovation: private price discovery for high-value digital and real-world assets.
 
-Technical implementation: Solana devnet wallet integration, Arcium client integration layer, typed encrypted bid input model, and a deployed MXE program target for sealed-bid/Vickrey/uniform settlement.
+Technical implementation: Solana devnet wallet integration, Arcium client integration layer, typed encrypted bid input model, and a deployed MXE program with live Sealed-Bid and Vickrey settlement attempts on devnet.
 
 User experience: wallet-native auction flow with clear privacy states and readable settlement mechanics.
 
