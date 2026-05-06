@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -10,7 +11,7 @@ const browserFsShim = fileURLToPath(new URL("./src/lib/browserFsShim.ts", import
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
 
 export default defineConfig({
-  plugins: [tanstackStart(), react(), tsconfigPaths(), tailwindcss()],
+  plugins: [tanstackStart(), nitro(), react(), tsconfigPaths(), tailwindcss()],
   resolve: {
     alias: {
       "@": srcDir,
